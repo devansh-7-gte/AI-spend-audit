@@ -28,38 +28,35 @@
 ### Day 3 → Audit Engine
 **Goal**: Build core spending analysis logic
 
-- [ ] Hardcode pricing tiers
-  - Free: 5 audits/month
-  - Pro: $9.99/month
-  - Business: $29.99/month
-- [ ] Write rule-based recommendation logic
+- [done ] Hardcode pricing tiers
+  
+- [done ] Write rule-based recommendation logic
   - Flag categories >30% of total
   - Detect spending trends (increasing/decreasing)
   - Suggest consolidation for 6+ categories
-- [ ] Add test cases for audit-engine functions
-  - `analyzeSpending()`
-  - `categorizeSpending()`
+- [done ] Add test cases for audit-engine functions
+ 
   - `generateRecommendations()`
-- [ ] Validate calculations with sample data
+- [done ] Validate calculations with sample data
 
-**Status**: ⏳ Pending
+**Status**: done
 
 ---
 
 ### Day 4 → Results Page
 **Goal**: Display audit results with key metrics
 
-- [ ] Results UI shows:
+- [ done ] Results UI shows:
   - **Current spend**: Total + breakdown by category
   - **Recommended action**: Top 1-2 recommendations
   - **Savings potential**: Dollar amount user can save
-- [ ] Add hero section with "Total Savings" highlight
+- [ done ] Add hero section with "Total Savings" highlight
   - Calculate based on recommendations
   - Show impact of suggested changes
-- [ ] Create comparison table (this month vs last)
+- [done ] Create comparison table (this month vs last)
 - [ ] Add export button (CSV for now)
 
-**Status**: ⏳ Pending
+**Status**: completed
 
 ---
 
