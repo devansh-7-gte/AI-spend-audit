@@ -1,36 +1,203 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 CreditFunk
 
-## Getting Started
+AI-powered spend optimization platform that helps teams analyze, reduce, and optimize their AI tooling costs.
 
-First, run the development server:
+![CreditFunk Banner](./public/preview.png)
+
+---
+
+## ✨ Features
+
+- 🔍 AI Spend Auditing
+- 🤖 Gemini AI Executive Summaries
+- 📊 Cost Optimization Insights
+- 💸 Monthly & Annual Savings Detection
+- 📤 Shareable Audit Reports
+- 📧 Automated Email Reports with Resend
+- ⚡ Beautiful Modern UI with TailwindCSS
+- 🌙 Fully Responsive Dark Theme
+- ☁️ Supabase Database Integration
+
+---
+
+## 🖥️ Tech Stack
+
+### Frontend
+- Next.js 15
+- React
+- TailwindCSS
+- shadcn/ui
+- Lucide Icons
+
+### Backend
+- Next.js API Routes
+- Supabase
+- Gemini API
+- Resend Email API
+
+---
+
+## 📸 Screenshots
+
+| Home Page | Audit Dashboard |
+|------------|----------------|
+| Add screenshot here | Add screenshot here |
+
+---
+
+## ⚙️ Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/creditfunk.git
+```
+
+Move into the project:
+
+```bash
+cd creditfunk
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🔑 Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file in the root directory:
 
-## Learn More
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
 
-To learn more about Next.js, take a look at the following resources:
+SUPABASE_SERVICE_ROLE_KEY=
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+GEMINI_API_KEY=
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+RESEND_API_KEY=
 
-## Deploy on Vercel
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧠 How It Works
+
+1. User enters AI tools and monthly spend
+2. Audit engine analyzes optimization opportunities
+3. Gemini generates AI-powered recommendations
+4. Savings insights are calculated
+5. Report is stored in Supabase
+6. Shareable links and email reports are generated
+
+---
+
+## 📊 Example Insights
+
+- Downgrade unused enterprise subscriptions
+- Consolidate overlapping AI tools
+- Remove inactive seats
+- Detect duplicated AI workflows
+- Identify overprovisioned plans
+
+---
+
+## 📁 Project Structure
+
+```bash
+src/
+ ├── app/
+ │   ├── api/
+ │   ├── audit/
+ │   ├── results/
+ │   └── share/
+ │
+ ├── components/
+ │   ├── ui/
+ │   ├── header.jsx
+ │   ├── hero.jsx
+ │   └── ...
+ │
+ ├── lib/
+ │   ├── audit-engine.js
+ │   ├── gemini.js
+ │   ├── emailService.js
+ │   └── supabase.js
+ │
+ └── data/
+```
+
+---
+
+## 📧 Email System
+
+CreditFunk uses Resend for automated audit delivery.
+
+Features:
+- Savings summary emails
+- Personalized audit notifications
+- Executive summary delivery
+- Production-ready email templates
+
+---
+
+## 🚀 Deployment
+
+Recommended platforms:
+
+- ▲ Vercel
+- Supabase
+- Resend
+
+Build for production:
+
+```bash
+npm run build
+```
+
+---
+
+## 🌟 Future Improvements
+
+- Stripe Billing Integration
+- Multi-team Dashboards
+- SaaS Usage Analytics
+- AI Tool Benchmarking
+- Organization Accounts
+- CSV/Excel Uploads
+- Real-time Spend Tracking
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome.
+
+For major changes, open an issue first to discuss what you would like to improve.
+
+---
+
+## 📜 License
+
+MIT License
+
+---
+
+## 💙 Built With Passion
+
+Designed and developed to help companies stop overspending on AI infrastructure and subscriptions.
+
+If you like this project, consider giving it a ⭐ on GitHub.
+
+

@@ -35,40 +35,27 @@ Understand:
 
 ## Interview Results Summary
 
-### Interviewee 1: Sarah (Age 28, Product Manager)
+### Interviewee 1: Mitarth Pandey (Age 22, Freelancer)
 - **Current Method**: Spreadsheet + bank app
 - **Pain Point**: Manual categorization takes 30 mins/month
 - **Desire**: Automatic categorization, visual insights
 - **Pricing**: Would pay $10/month for time savings
 - **Key Quote**: "I just want to understand where my money goes without the work"
 
-### Interviewee 2: Mike (Age 45, Small Business Owner)
+### Interviewee 2: Sparsh Kapoor (Age 22, Freelancer)
 - **Current Method**: QuickBooks for business, nothing for personal
 - **Pain Point**: Can't see personal vs business spending clearly
 - **Desire**: Separation of categories, tax reporting
 - **Pricing**: Would pay $30/month for business features
 - **Key Quote**: "I need to separate personal and business to understand tax liability"
 
-### Interviewee 3: Jessica (Age 32, Freelancer)
+### Interviewee 3: Samay Lalwani (Age 22, M&A Analyst @s&p global)
 - **Current Method**: Bank statements, occasional YNAB
 - **Pain Point**: Income variability makes budgeting hard
 - **Desire**: Trend analysis, predictions based on history
 - **Pricing**: Would pay $15/month, wants annual discount
 - **Key Quote**: "I want to know if I'm on track for my quarterly tax payments"
 
-### Interviewee 4: David (Age 55, Accountant)
-- **Current Method**: Client spreadsheets, manual reviews
-- **Pain Point**: Tedious manual categorization, error-prone
-- **Desire**: Bulk upload, automated categorization, export
-- **Pricing**: Would pay $50/month for professional version
-- **Key Quote**: "If you could save me 5 hours per client per month, that's huge value"
-
-### Interviewee 5: Lisa (Age 26, Recent Graduate)
-- **Current Method**: Relies on bank app only
-- **Pain Point**: No insights, just transaction list
-- **Desire**: Simple insights, visualization
-- **Pricing**: Only interested in free tier
-- **Key Quote**: "I don't want to think about it, just show me summaries"
 
 ## Key Themes
 

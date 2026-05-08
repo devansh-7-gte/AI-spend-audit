@@ -21,30 +21,30 @@ export default function HeroSection() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link href="/audit">
-            <Button size="lg" className="px-8">
+            <Button size="lg" variant="default"  className="px-8 bg-violet-900">
               Start Free Audit <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
           <Link href="#features">
-            <Button size="lg" variant="outline" className="px-8">
+            <Button size="lg" variant="outline" className="px-8 text-black">
               Learn More
             </Button>
           </Link>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 pt-8 border-t border-muted">
+        <div className="grid grid-cols-3 gap-4 pt-8 text-white border-t border-muted">
           <div>
-            <p className="text-3xl font-bold text-primary">10K+</p>
-            <p className="text-sm text-muted-foreground">Teams Audited</p>
+            <p className="text-3xl text-white font-bold text-primary">10K+</p>
+            <p className="text-sm text-white text-muted-foreground">Teams Audited</p>
           </div>
           <div>
-            <p className="text-3xl font-bold text-primary">$50K+</p>
-            <p className="text-sm text-muted-foreground">Saved</p>
+            <p className="text-3xl text-white font-bold text-primary">$50K+</p>
+            <p className="text-sm text-white text-muted-foreground">Saved</p>
           </div>
           <div>
-            <p className="text-3xl font-bold text-primary">30%</p>
-            <p className="text-sm text-muted-foreground">Avg Savings</p>
+            <p className="text-3xl text-white font-bold text-primary">30%</p>
+            <p className="text-sm text-white text-muted-foreground">Avg Savings</p>
           </div>
         </div>
       </div>

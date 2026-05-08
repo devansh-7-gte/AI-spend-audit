@@ -1,139 +1,425 @@
-# Prompts
+# AI Prompt Library
 
-## System Prompts for AI Features
+## Overview
 
-### Spending Categorization Prompt
-```
-You are a spending categorization assistant. Analyze the provided spending description and categorize it into one of these categories:
-- Food & Dining
-- Transportation
-- Entertainment
-- Utilities
-- Healthcare
-- Shopping
-- Business Expenses
+This document contains the core prompts powering the AI capabilities of the platform.
+
+The prompts are organized into:
+- AI audit prompts
+- Recommendation generation
+- Insight extraction
+- Marketing copy generation
+- Notification systems
+- Testing utilities
+- Documentation tooling
+
+---
+
+# 🧠 Core AI Audit Prompts
+
+## AI Spend Categorization Prompt
+
+```txt
+You are an AI spend categorization assistant.
+
+Analyze the provided AI tool or SaaS expense and categorize it into one of these categories:
+
+- AI Writing Tools
+- AI Coding Tools
+- AI Design Tools
+- AI Productivity Tools
+- AI Research Tools
+- Infrastructure & APIs
+- Team Collaboration
+- Marketing & Automation
+- Business Operations
 - Other
 
-Description: {description}
+Description:
+{description}
+
+Tool Name:
+{tool_name}
 
 Respond with only the category name.
 ```
 
-### Recommendation Generation Prompt
-```
-Based on the following spending analysis, generate 2-3 specific, actionable recommendations for reducing expenses:
+---
 
-Total Spending: ${total}
-Category Breakdown:
-{breakdown}
+# 💰 Recommendation Generation Prompt
 
-Recent Trends:
-{trends}
+```txt
+You are an AI cost optimization consultant.
+
+Analyze the following AI spending report and generate 3-5 highly actionable recommendations to reduce unnecessary AI expenses.
+
+Current Monthly Spend:
+${total_spend}
+
+Tool Breakdown:
+{tool_breakdown}
+
+Detected Patterns:
+{patterns}
+
+Team Size:
+{team_size}
 
 Generate recommendations that are:
-1. Specific (not generic advice)
-2. Actionable (user can implement them)
-3. Data-driven (based on their patterns)
+1. Specific
+2. Actionable
+3. ROI-focused
+4. Prioritized by impact
+5. Realistic for teams
 
-Format: JSON array with 'priority' (high/medium/low) and 'message' fields.
+For each recommendation include:
+- priority (high/medium/low)
+- recommendation
+- estimated_monthly_savings
+- reasoning
+
+Return response in JSON format.
 ```
 
-### Insight Generation Prompt
+---
+
+# 📊 AI Insight Generation Prompt
+
+```txt
+You are an AI business analyst.
+
+Analyze the following AI tooling data and generate surprising, high-value insights for the company.
+
+Audit Data:
+{audit_data}
+
+Generate:
+1. Key overspending observations
+2. Hidden inefficiencies
+3. Duplicate tool detection
+4. Potential consolidation opportunities
+5. Productivity vs spend observations
+
+The tone should be:
+- Professional
+- Insightful
+- Concise
+- Data-backed
+
+Keep responses highly actionable.
 ```
-Analyze this spending data and provide 2-3 key insights that would surprise or interest the user:
 
-{spending_data}
+---
 
-Format insights as:
-1. An observation about their spending patterns
-2. A comparison to typical spending
-3. A suggestion for optimization
+# 🧾 AI Summary Prompt
 
-Be conversational but data-backed.
+```txt
+You are generating an executive AI spend audit summary.
+
+Create a concise but high-impact summary for the company leadership team.
+
+Input:
+{audit_results}
+
+Requirements:
+- Focus on financial impact
+- Mention optimization opportunities
+- Mention risk areas
+- Mention efficiency gains
+- Keep under 200 words
+- Professional SaaS consulting tone
 ```
 
-## User-Facing Copy Prompts
+---
 
-### Subject Lines for Email Reports
-```
-Generate 5 compelling subject lines for a monthly spending audit email report.
+# 📬 Email Subject Line Prompt
 
-User spent: ${amount}
-Key change: {trend}
-Top category: {category}
+```txt
+Generate 5 compelling email subject lines for an AI spend audit report.
+
+Monthly Savings:
+${savings}
+
+Primary Optimization:
+{optimization}
+
+Company Type:
+{company_type}
 
 Subject lines should be:
-- Curiosity-inducing
-- Action-oriented
-- Personalized with their data
+- Personalized
+- Curiosity-driven
+- Professional
+- High CTR optimized
+- Short and impactful
 ```
 
-### Notification Messages
+---
+
+# 🔔 Notification Prompt
+
+```txt
+Generate a short notification encouraging a company to rerun their AI audit.
+
+Last Audit:
+{days_ago} days ago
+
+Primary AI Category:
+{top_category}
+
+Requirements:
+- Friendly tone
+- Not aggressive
+- Mention optimization potential
+- Maximum 2 sentences
 ```
-Generate a brief, friendly notification message to encourage the user to run an audit.
 
-They last audited: {days_ago} days ago
-Their average category: {category}
+---
 
-Message should be:
-- Encouraging (not pushy)
-- Specific to their patterns
-- 1-2 sentences max
-```
+# 🏗️ Development Prompts
 
-## Development Prompts
+## Code Review Prompt
 
-### Code Review Prompt
-```
+```txt
 Review this {language} code for:
-1. Performance issues
+
+1. Performance bottlenecks
 2. Security vulnerabilities
-3. Code style improvements
-4. Type safety (if applicable)
+3. Scalability concerns
+4. Code quality
+5. Maintainability
+6. Type safety
 
-Suggest specific changes with explanations.
+Provide:
+- Clear explanations
+- Suggested improvements
+- Refactored examples where useful
+
+Code:
+{code}
 ```
 
-### Documentation Prompt
-```
-Generate API documentation for this endpoint:
+---
 
-Method: {method}
-Route: {route}
-Purpose: {purpose}
-Request: {request_schema}
-Response: {response_schema}
+# 📘 Documentation Generation Prompt
+
+```txt
+Generate API documentation for this endpoint.
+
+Method:
+{method}
+
+Route:
+{route}
+
+Purpose:
+{purpose}
+
+Request Schema:
+{request_schema}
+
+Response Schema:
+{response_schema}
 
 Include:
-- Brief description
-- Request/response examples
-- Error codes
-- Rate limiting info
+- Overview
+- Request example
+- Response example
+- Validation rules
+- Error handling
+- Rate limits
+- Authentication requirements
 ```
 
-## Testing Prompts
+---
 
-### Test Case Generation
-```
-Generate comprehensive test cases for this function:
+# 🧪 Testing Prompts
 
+## Test Case Generator
+
+```txt
+Generate comprehensive test cases for this function.
+
+Function:
 {function_code}
 
-Include:
+Requirements:
 - Happy path tests
 - Edge cases
-- Error scenarios
+- Invalid inputs
+- Failure scenarios
 - Performance considerations
+- Security considerations
+
+Return structured test descriptions with expected outputs.
 ```
 
-## Marketing Copy Prompts
+---
 
-### Feature Benefit Statements
+# 📈 Marketing Prompt Library
+
+## Feature-to-Benefit Prompt
+
+```txt
+Convert the following feature into a customer-focused benefit statement.
+
+Feature:
+{feature}
+
+Target User:
+{user_type}
+
+Format:
+"Instantly {verb} by {action}, so you can {outcome}"
+
+Keep it concise and persuasive.
 ```
-Convert this feature into a customer benefit statement:
 
-Feature: {feature}
-Target User: {user_type}
+---
 
-Format: "Instantly {verb} by {action}, so you can {outcome}"
+# 🚀 Landing Page Headline Prompt
+
+```txt
+Generate 10 SaaS landing page headlines for an AI spend optimization platform.
+
+Platform Name:
+{platform_name}
+
+Core Benefit:
+{benefit}
+
+Tone:
+- Modern
+- Premium
+- Technical
+- High-conversion
+
+Focus on:
+- Saving money
+- AI optimization
+- Efficiency
+- Enterprise productivity
 ```
+
+---
+
+# 🧠 Future AI Expansion Prompts
+
+## AI Tool Consolidation Agent
+
+```txt
+Analyze the company's AI stack and identify tools with overlapping functionality.
+
+Tools:
+{tools}
+
+Team Usage:
+{usage_patterns}
+
+Identify:
+- Redundant subscriptions
+- Underused tools
+- Better bundled alternatives
+- Enterprise consolidation opportunities
+
+Return:
+- Tool to remove
+- Suggested replacement
+- Estimated savings
+- Justification
+```
+
+---
+
+# 📊 Pricing Optimization Prompt
+
+```txt
+Analyze current AI subscriptions and identify downgrade opportunities.
+
+Subscriptions:
+{subscriptions}
+
+Usage Metrics:
+{usage_metrics}
+
+Detect:
+- Unused premium plans
+- Over-provisioned seats
+- Low utilization
+- Better pricing tiers
+
+Provide estimated savings for each suggestion.
+```
+
+---
+
+# 🔒 Security Review Prompt
+
+```txt
+Review the following AI tooling stack for security and compliance risks.
+
+Stack:
+{stack}
+
+Check for:
+- Data privacy concerns
+- Vendor risks
+- Shadow AI usage
+- Compliance issues
+- Missing governance
+
+Return:
+- Risk severity
+- Explanation
+- Recommended mitigation
+```
+
+---
+
+# 📌 Notes
+
+## AI Provider Compatibility
+
+These prompts are designed to work with:
+- Gemini
+- OpenAI GPT models
+- Claude
+- Local LLMs
+
+---
+
+# ⚡ Prompt Engineering Principles Used
+
+- Structured outputs
+- Explicit constraints
+- Context injection
+- Role prompting
+- Action-oriented instructions
+- JSON formatting enforcement
+- Business-focused reasoning
+
+---
+
+# 🎯 Current Prompt Usage
+
+The platform currently uses prompts for:
+- AI summaries
+- Cost optimization recommendations
+- Email generation
+- Audit insights
+- Tool categorization
+- Business intelligence extraction
+
+---
+
+# 🚀 Planned Prompt Additions
+
+Future prompt systems may include:
+- AI forecasting
+- Budget prediction
+- Team efficiency scoring
+- SaaS ROI estimation
+- Procurement optimization
+- Vendor comparison agents
+- AI governance recommendations
+- Autonomous audit agents
