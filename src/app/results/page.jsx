@@ -49,7 +49,7 @@ function ResultsContent() {
 
   // Copy link handler
   const shareUrl = typeof window !== "undefined" 
-    ? `${window.location.origin}/share/${auditId}` 
+    ? `${window.location.origin}/results?id=${auditId}` 
     : "";
 
   const copyShareUrl = async () => {
