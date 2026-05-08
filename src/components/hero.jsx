@@ -39,7 +39,7 @@ export default function HeroSection() {
             <p className="text-sm text-muted-foreground">Teams Audited</p>
           </div>
           <div>
-            <p className="text-3xl font-bold text-primary">$50M+</p>
+            <p className="text-3xl font-bold text-primary">$50K+</p>
             <p className="text-sm text-muted-foreground">Saved</p>
           </div>
           <div>

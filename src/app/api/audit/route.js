@@ -7,6 +7,9 @@ from "@/lib/audit-engine";
 import { supabase }
 from "@/lib/supabase";
 
+import { sendAuditConfirmationEmail }
+from "@/lib/email-service";
+
 export async function POST(req) {
 
   try {
@@ -14,21 +17,17 @@ export async function POST(req) {
     const body =
       await req.json();
 
-    console.log(
-      "BODY:",
-      body
-    );
-
     // Validate input
     if (
       !body ||
-      !Array.isArray(body.tools)
+      !Array.isArray(body.tools) ||
+      !body.email
     ) {
 
       return NextResponse.json(
         {
           error:
-            "Invalid audit payload",
+            "Invalid audit payload - email is required",
         },
         {
           status: 400,
@@ -38,12 +37,12 @@ export async function POST(req) {
 
     // Run audit
     const auditResult =
-      runAudit(body);
+      await runAudit(body);
 
-    // Save to DB
+    // Save audit to DB
     const {
-      data,
-      error,
+      data: auditData,
+      error: auditError,
     } = await supabase
       .from("audits")
       .insert([
@@ -56,10 +55,7 @@ export async function POST(req) {
       .select()
       .single();
 
-    if (error) {
-
-      console.error(error);
-
+    if (auditError) {
       return NextResponse.json(
         {
           error:
@@ -71,20 +67,49 @@ export async function POST(req) {
       );
     }
 
+    // Save lead to DB
+    const {
+      error: leadError,
+    } = await supabase
+      .from("leads")
+      .insert([
+        {
+          email: body.email,
+          company_name: body.companyName || null,
+          role: body.role || null,
+          team_size: body.teamSize || null,
+          audit_id: auditData.id,
+          total_savings: auditResult.totalSavings,
+          annual_savings: auditResult.annualSavings,
+        },
+      ]);
+
+    if (leadError) {
+      // Log but don't fail the request
+    }
+
+    // Send confirmation email
+    const emailResult = await sendAuditConfirmationEmail(
+      body.email,
+      {
+        companyName: body.companyName,
+        role: body.role,
+      },
+      auditResult.totalSavings
+    );
+
+    if (!emailResult.success) {
+      // Log but don't fail the request
+    }
+
     return NextResponse.json({
 
       success: true,
 
-      auditId: data.id,
+      auditId: auditData.id,
     });
 
   } catch (err) {
-
-    console.error(
-      "Error running audit:",
-      err
-    );
-
     return NextResponse.json(
       {
         error:

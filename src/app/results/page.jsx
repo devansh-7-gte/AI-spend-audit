@@ -35,29 +35,6 @@ import {
 } from "lucide-react";
 
 export default function ResultsPage() {
-  const debugLog = (
-    hypothesisId,
-    location,
-    message,
-    data = {},
-    runId = "post-fix"
-  ) => {
-    // #region agent log
-    fetch("http://127.0.0.1:7242/ingest/f99714ff-4044-4b49-bf96-d10723fd352b", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        runId,
-        hypothesisId,
-        location,
-        message,
-        data,
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    // #endregion
-  };
-
   // Get audit ID from URL
   const searchParams =
     useSearchParams();
@@ -82,24 +59,6 @@ export default function ResultsPage() {
   )
     ? result.results
     : [];
-
-  // #region agent log
-  debugLog(
-    "H1",
-    "results/page.jsx:75",
-    "Render state snapshot",
-    {
-      auditId,
-      loading,
-      hasError: Boolean(error),
-      hasResult: Boolean(result),
-      hasResultsArray: Array.isArray(
-        result?.results
-      ),
-      resultsLength: resultRows.length,
-    }
-  );
-  // #endregion
 
   // Loading state
   if (loading) {
@@ -142,18 +101,6 @@ export default function ResultsPage() {
   }
 
   if (!result || !Array.isArray(result.results)) {
-    // #region agent log
-    debugLog(
-      "H3",
-      "results/page.jsx:126",
-      "Invalid result shape for rendering",
-      {
-        hasResult: Boolean(result),
-        resultType: typeof result,
-        resultsType: typeof result?.results,
-      }
-    );
-    // #endregion
     return (
       <div className="dark bg-slate-950 text-white min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
@@ -353,38 +300,65 @@ export default function ResultsPage() {
 
         {/* AI Summary */}
 
-        <Card className="bg-gradient-to-r from-slate-900 to-slate-800 border-slate-700 mb-12 overflow-hidden">
+        <Card className="bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950 border-blue-800/50 mb-12 overflow-hidden relative">
 
-          <CardContent className="p-8">
+          {/* Animated gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
 
-            <div className="flex items-center gap-3 mb-6">
+          <CardContent className="p-8 relative z-10">
 
-              <div className="p-3 rounded-full bg-blue-500/20">
+            {/* Header */}
+            <div className="flex items-center gap-3 mb-8">
 
-                <Brain className="w-6 h-6 text-blue-400" />
+              <div className="p-3 rounded-lg bg-gradient-to-br from-blue-500/30 to-blue-600/20 border border-blue-500/50">
+
+                <Brain className="w-6 h-6 text-blue-300" />
 
               </div>
 
               <div>
 
-                <h2 className="text-2xl font-bold">
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent">
                   AI Executive Summary
                 </h2>
 
-                <p className="text-gray-400 text-sm">
-                  Generated optimization insights
+                <p className="text-gray-400 text-sm mt-1">
+                  Powered by advanced optimization AI
                 </p>
 
               </div>
 
+              <Sparkles className="w-5 h-5 text-yellow-400 ml-auto animate-pulse" />
+
             </div>
 
-            <p className="text-gray-300 leading-7 whitespace-pre-line">
+            {/* Divider */}
+            <div className="h-px bg-gradient-to-r from-blue-500/50 via-blue-500/30 to-transparent mb-6"></div>
 
-              {result.aiSummary ||
-                `Your AI stack has approximately $${result.totalSavings}/month in potential savings opportunities.`}
+            {/* Summary Content */}
+            <div className="prose prose-invert max-w-none">
 
-            </p>
+              <p className="text-gray-200 leading-8 text-base whitespace-pre-line font-light">
+
+                {result.aiSummary ||
+                  `Your AI stack has approximately $${result.totalSavings}/month in potential savings opportunities. Review the specific recommendations below to unlock these savings.`}
+
+              </p>
+
+            </div>
+
+            {/* Footer highlight */}
+            <div className="mt-6 p-4 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-start gap-3">
+
+              <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+
+              <p className="text-sm text-gray-300">
+
+                <span className="text-blue-300 font-semibold">Action Item:</span> Review the detailed recommendations below and prioritize changes with the highest impact.
+
+              </p>
+
+            </div>
 
           </CardContent>
 

@@ -16,10 +16,6 @@ export default function TestPage() {
         await supabase
           .from("audits")
           .select("*");
-
-      console.log("DATA:", data);
-
-      console.log("ERROR:", error);
     }
 
     testConnection();

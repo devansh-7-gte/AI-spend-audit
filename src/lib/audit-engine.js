@@ -1,7 +1,8 @@
 import { generateRecommendation }
 from "./recommendations";
+import { GoogleGenAI } from "@google/genai";
 
-export function runAudit(input) {
+export async function runAudit(input) {
 
   let totalSavings = 0;
   let totalSpend = 0;
@@ -67,7 +68,7 @@ export function runAudit(input) {
 
     // AI Summary
     aiSummary:
-      generateAISummary(
+      await generateAISummary(
         input,
         roundedSavings,
         savingsPercentage
@@ -82,61 +83,62 @@ export function runAudit(input) {
   };
 }
 
-function generateAISummary(
-  input,
-  savings,
-  percentage
+async function generateAISummary(
+ input, roundedSavings, savingsPercentage
 ) {
-
-  const toolCount =
-    input.tools.length;
-
-  const useCase =
-    input.useCase || "general";
-
-  if (savings === 0) {
-    return `
-Your current AI tooling stack appears relatively optimized for your ${useCase} workflows.
-
-No major overspending risks were detected across the ${toolCount} tools analyzed. Your current allocation strategy seems efficient relative to team size and selected plans.
-
-Minor optimizations may still exist through workflow consolidation or selective downgrades, but no immediate high-impact savings opportunities were identified.
-    `;
+const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error("Missing GEMINI_API_KEY");
   }
+  const model = "gemini-2.5-flash";
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+   const prompt = `
+You are an AI spend optimization consultant.
 
-  if (percentage >= 40) {
-    return `
-Our audit identified significant optimization opportunities across your AI tooling stack.
+Analyze this AI tooling audit.
 
-Approximately $${savings}/month (${percentage}% of current spending) can likely be reduced through better plan alignment, removal of overlapping tools, and optimization of premium subscriptions.
+TOOLS:
+${JSON.stringify(input.tools, null, 2)}
 
-The largest savings opportunities appear to come from enterprise-tier over-selection and unused premium collaboration functionality.
+TOTAL MONTHLY SAVINGS:
+$${roundedSavings}
 
-Based on your ${useCase} workflows, a leaner tooling configuration could maintain similar productivity while substantially reducing recurring operational costs.
-    `;
-  }
+SAVINGS PERCENTAGE:
+${savingsPercentage}%
 
-  if (percentage >= 20) {
-    return `
-Your current AI tooling setup shows moderate optimization potential.
+Write:
+- major inefficiencies
+- optimization opportunities
+- workflow improvements
+- annual savings impact
 
-The audit detected approximately $${savings}/month in potential savings through plan restructuring and smarter allocation of AI subscriptions across your team.
+Keep response concise and professional.
+`;
+const response = await fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    contents: [{
+      parts: [{
+        text: prompt
+      }]
+    }]
+  })
+});
 
-Most opportunities appear related to redundant premium features and mismatched pricing tiers relative to actual usage patterns.
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+         const improveJson = await response.json();
+    const improvedText =
+      (improveJson?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
+      "No summary available.").replace(/\*\*/g, "");
 
-Implementing the suggested changes could improve tooling efficiency while lowering annual spend by approximately $${
-      savings * 12
-    }.
-    `;
-  }
-
-  return `
-Your AI stack is relatively healthy, though a few optimization opportunities were detected.
-
-Approximately $${savings}/month in potential savings may be achieved through selective downgrades and improved tool utilization strategies.
-
-The current configuration generally aligns with your ${useCase} workflows, though some premium features may be underutilized relative to subscription cost.
-  `;
+    return improvedText;
+  
 }
 
 function generateAuditId() {

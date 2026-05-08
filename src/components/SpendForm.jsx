@@ -39,6 +39,12 @@ export default function SpendForm() {
   const [useCase, setUseCase] =
     useState("coding");
 
+  const [email, setEmail] = useState("");
+
+  const [companyName, setCompanyName] = useState("");
+
+  const [role, setRole] = useState("");
+
   const [alert, setAlert] = useState(null);
 
   // Load saved data
@@ -67,8 +73,21 @@ export default function SpendForm() {
       setUseCase(
         parsed.useCase || "coding"
       );
+
+      setEmail(
+        parsed.email || ""
+      );
+
+      setCompanyName(
+        parsed.companyName || ""
+      );
+
+      setRole(
+        parsed.role || ""
+      );
     }
   }, []);
+  const [isRunning, setIsRunning] = useState(false);
 
   // Save data automatically
   useEffect(() => {
@@ -76,13 +95,16 @@ export default function SpendForm() {
       tools,
       teamSize,
       useCase,
+      email,
+      companyName,
+      role,
     };
 
     localStorage.setItem(
       "auditInput",
       JSON.stringify(data)
     );
-  }, [tools, teamSize, useCase]);
+  }, [tools, teamSize, useCase, email, companyName, role]);
 
   const handleToolChange = (
     index,
@@ -131,67 +153,50 @@ export default function SpendForm() {
         t.seats !== ""
     ) &&
     teamSize !== "" &&
-    useCase.trim() !== "";
+    useCase.trim() !== "" &&
+    email.trim() !== "";
 
   const handleSubmit = async () => {
-
-  if (!isFormValid) {
-
-    setAlert(
-      "Please fill out all fields to run the audit."
-    );
-
-    return;
-  }
-
-  try {
-
-    setAlert(null);
-
-    const payload = {
-      tools,
-      teamSize,
-      useCase,
-    };
-
-    const res = await fetch(
-      "/api/audit",
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-
-        body: JSON.stringify(
-          payload
-        ),
-      }
-    );
-
-    const data =
-      await res.json();
-
-    if (!res.ok) {
-
-      throw new Error(
-        data.error ||
-        "Failed to run audit"
+    if (!isFormValid) {
+      setAlert(
+        "Please fill out all fields to run the audit."
       );
+      return;
     }
 
-    router.push(
-      `/results?id=${data.auditId}`
-    );
+    try {
+      setAlert(null);
+      setIsRunning(true);
+      const payload = {
+        tools,
+        teamSize,
+        useCase,
+        email,
+        companyName: companyName || null,
+        role: role || null,
+      };
 
-  } catch (err) {
+      const res = await fetch("/api/audit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    setAlert(
-      err.message
-    );
-  }
-};
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to run audit");
+      }
+
+      router.push(`/results?id=${data.auditId}`);
+    } catch (err) {
+      setAlert(err.message);
+    } finally {
+      setIsRunning(false);
+    }
+  };
 
   return (
     <Card className="w-full max-w-2xl mx-auto">
@@ -386,12 +391,61 @@ export default function SpendForm() {
           </Select>
         </div>
 
+        {/* Email Section */}
+        <div className="border-t pt-6">
+          <h3 className="font-semibold mb-4">Contact Information</h3>
+
+          {/* Email */}
+          <div className="space-y-2 mb-4">
+            <label className="text-sm font-medium">
+              Email Address *
+            </label>
+
+            <Input
+              type="email"
+              placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Company Name */}
+          <div className="space-y-2 mb-4">
+            <label className="text-sm font-medium text-gray-600">
+              Company Name (Optional)
+            </label>
+
+            <Input
+              type="text"
+              placeholder="Your Company"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+            />
+          </div>
+
+          {/* Role */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-600">
+              Your Role (Optional)
+            </label>
+
+            <Input
+              type="text"
+              placeholder="e.g., CTO, Engineering Manager"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            />
+          </div>
+        </div>
+
         {/* Submit */}
         <Button
           onClick={handleSubmit}
+          disabled={!isFormValid || isRunning}
           className="w-full"
         >
-          Run Audit
+          {isRunning ? "Running Audit..." : "Run Audit"}
         </Button>
 
       </CardContent>
