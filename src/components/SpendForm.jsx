@@ -436,6 +436,7 @@ export default function SpendForm() {
               value={role}
               onChange={(e) => setRole(e.target.value)}
             />
+            <p className="text-sm">* resend email service won't work for non registered emails as the creator does not have a Domain Name</p>
           </div>
         </div>
 

@@ -25,7 +25,7 @@ Understand:
 
 ### Pricing Questions
 1. "How much would you pay for a better spending analysis tool?" (Open)
-2. "Which price point appeals to you most: Free / $5/mo / $10/mo / $20/mo?"
+2. "Which price point appeals to you most: Free / Rs.399/mo / Rs.1000/mo / Rs.2000/mo?"
 3. "Would you pay monthly or prefer to pay annually?"
 
 ### Demographic Questions
