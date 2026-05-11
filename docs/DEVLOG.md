@@ -305,8 +305,7 @@ Resend email sending failures in development.
 - Gemini AI insights
 - Shareable reports
 - Automated emails
-- Lead collection
-- Modern analytics UI
+
 
 ---
 
