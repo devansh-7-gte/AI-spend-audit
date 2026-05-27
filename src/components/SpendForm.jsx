@@ -190,6 +190,14 @@ export default function SpendForm() {
         throw new Error(data.error || "Failed to run audit");
       }
 
+      // Cache audit results in localStorage for local IDs
+      if (data.auditId && data.results) {
+        localStorage.setItem(
+          `audit_${data.auditId}`,
+          JSON.stringify(data.results)
+        );
+      }
+
       router.push(`/results?id=${data.auditId}`);
     } catch (err) {
       setAlert(err.message);

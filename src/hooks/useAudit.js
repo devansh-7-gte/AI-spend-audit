@@ -28,6 +28,23 @@ export function useAudit(id) {
 
         setLoading(true);
 
+        // Check localStorage first (for local IDs)
+        const cached = localStorage.getItem(
+          `audit_${id}`
+        );
+        
+        if (cached) {
+          try {
+            const result = JSON.parse(cached);
+            setData({ audit: { result } });
+            setLoading(false);
+            return;
+          } catch (parseErr) {
+            console.warn('Failed to parse cached audit:', parseErr.message);
+          }
+        }
+
+        // Fetch from API if not in cache
         const res = await fetch(
           `/api/share/${id}`
         );

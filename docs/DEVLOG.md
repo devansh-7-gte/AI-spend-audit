@@ -1,6 +1,7 @@
 # Development Log
 
 # CreditFunk — Build Sprint Log
+git log --pretty=format:"%ad" --date=short | sort -u
 
 ---
 
